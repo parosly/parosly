@@ -4,7 +4,7 @@ from fastapi import APIRouter
 from fastapi import Request
 
 router = APIRouter()
-
+favicon_url = "https://raw.githubusercontent.com/parosly/parosly/refs/heads/main/ui/assets/images/favicon.ico"
 
 @router.get("/docs", include_in_schema=False)
 def swagger_ui(request: Request):
@@ -18,7 +18,7 @@ def swagger_ui(request: Request):
             "method": request.method,
             "request_path": request.url.path})
     return get_swagger_ui_html(openapi_url="/openapi.json", title="Parosly - Docs",
-                               swagger_favicon_url="images/favicon.ico")
+                               swagger_favicon_url=favicon_url)
 
 
 @router.get("/redoc", include_in_schema=False)
@@ -33,4 +33,4 @@ def redoc_ui(request: Request):
             "method": request.method,
             "request_path": request.url.path})
     return get_redoc_html(openapi_url="/openapi.json", title="Parosly - Docs",
-                          redoc_favicon_url="images/favicon.ico")
+                          redoc_favicon_url=favicon_url)
