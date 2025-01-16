@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const modal = document.getElementById("exportModal");
     const btn = document.getElementById("openModalBtn");
     const span = document.getElementsByClassName("close")[0];
+    const loadingIndicator = document.getElementById('loadingIndicator');
 
     
     modal.style.display = "none";
@@ -16,6 +17,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('exportForm').addEventListener('submit', async function(event) {
         event.preventDefault();
+
+        // Start Spinner
+        loadingIndicator.style.display = 'block';
 
         const expr = document.getElementById('expr').value;
         const start = document.getElementById('start').value ? new Date(document.getElementById('start').value).toISOString() : null;
@@ -67,6 +71,9 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.removeChild(a);
         } catch (error) {
             document.getElementById('results').innerHTML = `<p style="color: red;">${error.message}</p>`;
+        } finally {
+            // Stop Spinner
+            loadingIndicator.style.display = 'none';
         }
     });
 
