@@ -9,6 +9,7 @@ examples and guides.</p>
 
 ![Build](https://github.com/parosly/parosly/actions/workflows/build.yml/badge.svg)
 ![Release](https://github.com/parosly/parosly/actions/workflows/release.yml/badge.svg)
+[![Latest Release](https://img.shields.io/github/release/parosly/parosly.svg?label=latest%20release)](https://github.com/parosly/parosly/releases)
 ![Github stars](https://badgen.net/github/stars/parosly/parosly?icon=github&label=stars)
 ![Github forks](https://badgen.net/github/forks/parosly/parosly?icon=github&label=forks)
 ![Github issues](https://img.shields.io/github/issues/parosly/parosly)

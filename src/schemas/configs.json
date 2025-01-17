@@ -1136,6 +1136,9 @@
             "type": ["boolean", "null"],
             "default": false
           },
+          "enable_http2": {
+            "$ref": "#/definitions/enable_http2"
+          },
           "basic_auth": {
             "$ref": "#/definitions/basic_auth"
           },

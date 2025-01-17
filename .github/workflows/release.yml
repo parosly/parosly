@@ -36,7 +36,7 @@ jobs:
           echo "date=$(date +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
           echo "app_version=$(sed "s/^v//" <<< ${{ steps.git_tag.outputs.tag }})" >> "$GITHUB_OUTPUT"
       - name: Download artifact
-        uses: dawidd6/action-download-artifact@v3
+        uses: dawidd6/action-download-artifact@v6
         with:
           name: ${{ github.event.repository.name }}-${{ env.PR_NUMBER }}
           path: /tmp
