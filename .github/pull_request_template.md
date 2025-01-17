@@ -7,3 +7,4 @@
 
 - [ ] [DCO](https://gcc.gnu.org/dco.html) signed
 - [ ] No conflict with the main branch.
+- [ ] Version updated in code, docs, and metadata.
