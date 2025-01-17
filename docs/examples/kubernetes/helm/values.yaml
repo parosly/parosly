@@ -23,7 +23,6 @@ server:
         - --web.listen-address=0.0.0.0:9090
         - --config.file=/config/prometheus.yml
         - --rule.path=/rules
-        - --web.enable-ui=true
        ports:
          - name: http
            containerPort: 9090

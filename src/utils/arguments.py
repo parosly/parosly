@@ -66,7 +66,7 @@ def arg_parser() -> dict:
         "--web.enable-ui",
         required=False,
         type=str,
-        default="false",
+        default="true",
         choices=["true", "false"],
         help="enable web management UI"
     )
