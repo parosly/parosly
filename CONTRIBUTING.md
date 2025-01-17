@@ -25,7 +25,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 mkdir docs/examples/docker/rules # this path is already included in .gitignore
-python3 main.py --rule.path docs/examples/docker/rules --prom.addr http://localhost:9090 --web.enable-ui=true
+python3 main.py --config.file docs/examples/docker/prometheus.yml --rule.path docs/examples/docker/rules --prom.addr http://localhost:9090
 ```
 
 We use [`ruff-action`](https://github.com/chartboost/ruff-action) for linting the code. This means the committed code can be reported by the linter when it exits with failures. In some cases, your changes can also be fixed or modified by the linter.
