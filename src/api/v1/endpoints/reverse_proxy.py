@@ -17,6 +17,7 @@ async def _reverse_proxy(request: Request):
     url = httpx.URL(path=request.url.path,
                     query=request.url.query.encode("utf-8"))
     rp_req = client.build_request(request.method, url,
+                                  timeout=None,
                                   headers=request.headers.raw,
                                   content=await request.body())
     rp_resp = await client.send(rp_req, stream=True)
