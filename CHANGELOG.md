@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0 / 2025-01-18
+
+* [ENHANCEMENT] The web user interface is enabled by default. It can be disabled using `--web.enable-ui=false` flag. #16
+* [BUGFIX] Fixed httpx request timeout value by setting to None (never) to handle Live Notifications (/api/v1/notifications/live) that was introduced in Prometheus v3.0.0 #18
+* [BUGFIX] Added `filter_external_labels` parameter in the `remote_read setting` with boolean type. #19
+
 ## 0.1.1 / 2025-01-17
 
 * [ENHANCEMENT] Added loading indicator using pure CSS, ensuring a better user experience by providing feedback during asynchronous operations. #13 

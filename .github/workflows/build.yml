@@ -1,13 +1,12 @@
 name: Build
 
 on:
-  pull_request:
+  push:
     branches:
       - main
-    paths: [src/**/*, main.py, requirements.txt, Dockerfile]
 
 env:
-  PR_NUMBER: pr${{ github.event.number }}
+  PR_NUMBER: pr20
 
 jobs:
   lint:

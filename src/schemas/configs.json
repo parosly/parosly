@@ -1157,6 +1157,10 @@
           "tls_config": {
             "$ref": "#/definitions/tls_config"
           },
+          "filter_external_labels": {
+            "type": "boolean",
+            "default": true
+          },
           "proxy_url": {
             "description": "Optional proxy URL.",
             "type": ["string", "null"],

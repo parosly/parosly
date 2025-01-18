@@ -166,9 +166,8 @@ Grafana dashboard JSON model is available [here](https://github.com/parosly/paro
 
 <!--Web UI -->
 ## Web UI
-The web user interface is disabled by default. As the Parosly project is specifically designed to extend the APIs 
-available to Prometheus, the UI serves as an optional add-on feature. It offers a convenient and flexible way to manage 
-Prometheus rules. To enable the web UI, the `--web.enable-ui=true` flag must be passed at the startup of the application.
+The web user interface is enabled by default but can be disabled using `--web.enable-ui=false`. It provides a convenient 
+and flexible way to manage Prometheus configurations, rules, and more.
 
 ![](docs/images/ui.png)
 
