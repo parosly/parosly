@@ -1,4 +1,4 @@
-// Sidebar yükleme fonksiyonu
+// Function to load sidebar
 function loadSidebar() {
     fetch('/components/templates/sidebar.html')
         .then(response => response.text())
@@ -8,7 +8,7 @@ function loadSidebar() {
         .catch(error => console.error('Error loading sidebar:', error));
 }
 
-// Loading indicator işlemleri
+// Loading indicator operations
 function showLoading() {
     document.querySelector('.loading-indicator').style.display = 'block';
 }
@@ -17,7 +17,7 @@ function hideLoading() {
     document.querySelector('.loading-indicator').style.display = 'none';
 }
 
-// Hata mesajı gösterme
+// Show error message
 function showError(message) {
     const errorDiv = document.createElement('div');
     errorDiv.className = 'error-message';
@@ -26,5 +26,5 @@ function showError(message) {
     setTimeout(() => errorDiv.remove(), 3000);
 }
 
-// Sayfa yüklendiğinde sidebar'ı yükle
+// Load sidebar when page is loaded
 document.addEventListener('DOMContentLoaded', loadSidebar); 
