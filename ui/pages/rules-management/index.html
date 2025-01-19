@@ -4,34 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Parosly - Rules Management</title>
-    <link rel="stylesheet" href="/rules-management/style.css">
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <!-- Ortak CSS dosyaları -->
+    <link rel="stylesheet" href="/components/css/common.css">
+    <link rel="stylesheet" href="/components/css/sidebar.css">
+    <!-- Sayfa özel CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
 </head>
 <body>
-    <div id="sidebar" class="sidebar">
-        <a href="#" class="sidebar-icon" id="homeBtn">
-            <img src="/images/icon-home.png" alt="Home"/>
-            <span class="icon-label">Home</span>
-        </a>
-        <a href="#" class="sidebar-icon" id="prometheusBtn">
-            <img src="/images/logo-prometheus.png" alt="Prometheus"/>
-            <span class="icon-label">Prometheus</span>
-        </a>
-        <a href="/config-management" class="sidebar-icon" id="configManagement">
-            <img src="/images/icon-config-management.png" alt="Config Management"/>
-            <span class="icon-label">Config Management</span>
-        </a>
-        <a href="/metrics-management" class="sidebar-icon" id="metricsManagement">
-            <img src="/images/icon-metrics-management.png" alt="Metrics Management"/>
-            <span class="icon-label">Metrics Management</span>
-        </a>
-        <a href="/reports" class="sidebar-icon" id="reportsPage">
-            <img src="/images/icon-reports.png" alt="Reports"/>
-            <span class="icon-label">Reports</span>
-        </a>
-    </div>
+    <!-- Sidebar container -->
+    <div id="sidebarContainer"></div>
+
+    <!-- Loading indicator -->
+    <div class="loading-indicator"></div>
+
     <div class="main-content">
         <div class="toolbar">
             <button id="createRuleBtn" class="action-btn create-btn">Create</button>
@@ -81,9 +69,9 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/yaml/yaml.min.js"></script>
-    <script type="" src="/rules-management/script.js"></script>
+    <!-- Ortak JavaScript -->
+    <script src="/components/js/common.js"></script>
+    <!-- Sayfa özel JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>

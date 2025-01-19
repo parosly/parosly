@@ -1,0 +1,42 @@
+/* Basic style resets and common styles */
+body, h1, ul, li, a {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #F7FAFC;
+}
+
+.main-content {
+    margin-left: 60px;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+.sidebar:hover + .main-content {
+    margin-left: 220px;
+}
+
+/* Common button styles */
+button {
+    padding: 10px 20px;
+    background-color: #48BB78;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #38A169;
+}
+
+/* Loading indicator animation */
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+} 
