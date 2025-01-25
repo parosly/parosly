@@ -42,7 +42,7 @@ examples and guides.</p>
     <li><a href="#grafana-dashboard">Grafana dashboard</a></li>
     <li><a href="#web-ui">Web UI</a></li>
     <li><a href="#author-and-maintainer">Author and Maintainer</a></li>
-    <li><a href="#licence">License</a></li>
+    <li><a href="#license">License</a></li>
   </ol>
 </details>
 
