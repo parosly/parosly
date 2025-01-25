@@ -1,8 +1,8 @@
 <h1 align="center" style="border-bottom: none">
-    <a href="https://docs.parosly.io" target="_blank"><img alt="Parosly" src="ui/assets/images/logo-parosly.svg" height="180px" width="180px"></a><br>Parosly
+    <a href="https://parosly.io" target="_blank"><img alt="Parosly" src="ui/assets/images/logo-parosly.svg" height="180px" width="180px"></a><br>Parosly
 </h1>
 
-<p align="center">Visit <a href="https://docs.parosly.io" target="_blank">docs.parosly.io</a> for the full documentation,
+<p align="center">Visit <a href="https://parosly.io" target="_blank">parosly.io</a> for the full documentation,
 examples and guides.</p>
 
 <div align="center">
