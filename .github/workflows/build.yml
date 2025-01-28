@@ -5,14 +5,15 @@ on:
     branches:
       - main
     paths: [src/**/*, main.py, requirements.txt, Dockerfile]
+  workflow_call: {}
 
 env:
-  PR_NUMBER: pr${{ github.event.number }}
+  SHA: ${{ github.sha }}
 
 jobs:
   lint:
     name: Lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: write
     steps:
@@ -26,7 +27,7 @@ jobs:
           version: 0.2.1
           args: --diff --exit-zero
       - uses: chartboost/ruff-action@v1
-        name: Appy fixes
+        name: Apply fixes
         with:
           src: "./src main.py"
           version: 0.2.1
@@ -48,7 +49,7 @@ jobs:
 
   build:
     name: Build Docker images
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: [lint]
     steps:
       - name: Checkout
@@ -61,7 +62,7 @@ jobs:
             ${{ github.repository }}
             ghcr.io/${{ github.repository }}
           tags: |
-            type=raw,value=${{ env.PR_NUMBER }}
+            type=raw,value=${{ env.SHA }}
             type=raw,value=latest
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -74,27 +75,27 @@ jobs:
           push: false
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          outputs: type=docker,dest=/tmp/${{ github.event.repository.name }}-${{ env.PR_NUMBER }}.tar
+          outputs: type=docker,dest=/tmp/${{ github.event.repository.name }}-${{ env.SHA }}.tar
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: ${{ github.event.repository.name }}-${{ env.PR_NUMBER }}
-          path: /tmp/${{ github.event.repository.name }}-${{ env.PR_NUMBER }}.tar
+          name: ${{ github.event.repository.name }}-${{ env.SHA }}
+          path: /tmp/${{ github.event.repository.name }}-${{ env.SHA }}.tar
 
   scan:
     name: Scan Docker images
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: [build]
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
-          name: ${{ github.event.repository.name }}-${{ env.PR_NUMBER }}
+          name: ${{ github.event.repository.name }}-${{ env.SHA }}
           path: /tmp
       - name: Load image
         run: |
-          docker load --input /tmp/${{ github.event.repository.name }}-${{ env.PR_NUMBER }}.tar
+          docker load --input /tmp/${{ github.event.repository.name }}-${{ env.SHA }}.tar
       - name: Find vulnerabilities
         run: |
           docker run -v /var/run/docker.sock:/var/run/docker.sock \
-          anchore/grype:v0.72.0 docker:${{ github.repository }}:${{ env.PR_NUMBER }} -o table --fail-on critical
+          anchore/grype:v0.72.0 docker:${{ github.repository }}:${{ env.SHA }} -o table --fail-on critical
