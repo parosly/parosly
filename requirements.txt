@@ -5,7 +5,7 @@ APScheduler==3.10.4
 pytimeparse2==1.7.1
 jsonschema==4.17.3
 starlette==0.40.0
-requests==2.28.2
+requests==2.32.2
 pydantic==1.10.7
 fastapi==0.115.8
 uvicorn==0.21.1
