@@ -1,4 +1,18 @@
 
+## [v0.2.1] - 2025-02-01
+### Bug Fixes
+- [`11169ac`](https://github.com/parosly/parosly/commit/11169ac1357f88672177b070ed8f5ce867dacda9) - Update app version in docs #none *(PR [#15](https://github.com/parosly/parosly/pull/15) by [@hayk96](https://github.com/hayk96))*
+- [`4de2519`](https://github.com/parosly/parosly/commit/4de2519f6d2279c98f80b4744c78f3a4ea616358) - **docs**: fix typo in README.md *(commit by [@hayk96](https://github.com/hayk96))*
+- [`3336682`](https://github.com/parosly/parosly/commit/3336682b7d921ece7d5fab1f3c0703341f42b44a) - **dockerfile**: fix legacy instructions in Dockerfile *(PR [#28](https://github.com/parosly/parosly/pull/28) by [@hayk96](https://github.com/hayk96))*
+
+### Chores
+- [`008c171`](https://github.com/parosly/parosly/commit/008c1710c16f2d2bdb200335a437162794a189dc) - **CI**: Update checklist of PR template #none *(commit by [@hayk96](https://github.com/hayk96))*
+- [`3f36149`](https://github.com/parosly/parosly/commit/3f361495690c2bf324aa97f37e459090ec3f9a8b) - **deps**: bump starlette and fastapi *(PR [#25](https://github.com/parosly/parosly/pull/25) by [@dependabot[bot]](https://github.com/apps/dependabot))*
+- [`399fe46`](https://github.com/parosly/parosly/commit/399fe4677a1bcb2e5575f349b7073e4b4d1b37a7) - **deps**: bump requests from 2.28.2 to 2.32.2 *(PR [#26](https://github.com/parosly/parosly/pull/26) by [@dependabot[bot]](https://github.com/apps/dependabot))*
+- [`f48eb2b`](https://github.com/parosly/parosly/commit/f48eb2b9e3035ac57eec191b1d71b877a5a30c15) - **deps**: bump pydantic from 1.10.7 to 1.10.13 *(PR [#27](https://github.com/parosly/parosly/pull/27) by [@dependabot[bot]](https://github.com/apps/dependabot))*
+- [`cafc1db`](https://github.com/parosly/parosly/commit/cafc1db85b67a201b611cca8c03be4f5d1baa91e) - bump app version *(commit by [@hayk96](https://github.com/hayk96))*
+
+
 ## [v0.2.0] - 2025-01-18
 ### New Features
 - [`31bb629`](https://github.com/parosly/parosly/pull/16/commits/31bb6294dbae8b998e12fe1df248f9a804b3ffd8) - **API**: enable Web UI by default *(commit by [@hayk96](https://github.com/hayk96))*
@@ -18,3 +32,4 @@
 [v0.1.0]: https://github.com/parosly/parosly/tree/v0.1.0
 [v0.1.1]: https://github.com/parosly/parosly/compare/v0.1.0...v0.1.1
 [v0.2.0]: https://github.com/parosly/parosly/compare/v0.2.0...v0.1.1
+[v0.2.1]: https://github.com/parosly/parosly/compare/v0.1.1...v0.2.1
