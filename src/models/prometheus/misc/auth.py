@@ -1,69 +1,66 @@
 from pydantic import BaseModel, Field, SecretStr
+
 from src.models.prometheus.misc import tls
-from typing import Optional, Dict, List
 
 
 class BasicAuthConfig(BaseModel):
-    username: Optional[str] = Field(None)
-    password: Optional[SecretStr] = Field(None)
-    password_file: Optional[str] = Field(None)
+    username: str | None = Field(None)
+    password: SecretStr | None = Field(None)
+    password_file: str | None = Field(None)
 
 
 class AuthorizationConfig(BaseModel):
-    type: Optional[str] = Field("Bearer")
-    credentials: Optional[SecretStr] = Field(None)
-    credentials_file: Optional[str] = Field(None)
+    type: str | None = Field("Bearer")
+    credentials: SecretStr | None = Field(None)
+    credentials_file: str | None = Field(None)
 
 
 class OAuth2Config(BaseModel):
     client_id: str = Field(..., description="The client ID.")
-    client_secret: Optional[SecretStr] = Field(
-        None, description="The client secret.")
-    client_secret_file: Optional[str] = Field(
-        None,
-        description="The client secret file. It is mutually exclusive with `client_secret`.")
-    scopes: Optional[List[str]] = Field(
-        None, description="Scopes for the token request.")
+    client_secret: SecretStr | None = Field(None, description="The client secret.")
+    client_secret_file: str | None = Field(
+        None, description="The client secret file. It is mutually exclusive with `client_secret`."
+    )
+    scopes: list[str] | None = Field(None, description="Scopes for the token request.")
     token_url: str = Field(..., description="The URL to fetch the token from.")
-    endpoint_params: Optional[Dict[str, str]] = Field(
-        None, description="Optional parameters to append to the token URL.")
-    tls_config: Optional[tls.TLSConfig] = Field(
-        None, description="Configures the token request's TLS settings.")
-    proxy_url: Optional[str] = Field(None, description="Optional proxy URL.")
-    no_proxy: Optional[str] = Field(
+    endpoint_params: dict[str, str] | None = Field(None, description="Optional parameters to append to the token URL.")
+    tls_config: tls.TLSConfig | None = Field(None, description="Configures the token request's TLS settings.")
+    proxy_url: str | None = Field(None, description="Optional proxy URL.")
+    no_proxy: str | None = Field(
         None,
         description="Comma-separated string that can contain IPs, CIDR notation, domain names that should be "
-                    "excluded from proxying. IP and domain names can contain port numbers.")
-    proxy_from_environment: Optional[bool] = Field(
-        False, description="Use proxy URL indicated by environment variables.")
-    proxy_connect_header: Optional[Dict[str, List[SecretStr]]] = Field(
-        None, description="Specifies headers to send to proxies during CONNECT requests.")
+        "excluded from proxying. IP and domain names can contain port numbers.",
+    )
+    proxy_from_environment: bool | None = Field(False, description="Use proxy URL indicated by environment variables.")
+    proxy_connect_header: dict[str, list[SecretStr]] | None = Field(
+        None, description="Specifies headers to send to proxies during CONNECT requests."
+    )
 
 
 class Sigv4Config(BaseModel):
-    region: Optional[str] = Field(None)
-    access_key: Optional[str] = Field(None)
-    secret_key: Optional[SecretStr] = Field(None)
-    profile: Optional[str] = Field(None)
-    role_arn: Optional[str] = Field(None)
+    region: str | None = Field(None)
+    access_key: str | None = Field(None)
+    secret_key: SecretStr | None = Field(None)
+    profile: str | None = Field(None)
+    role_arn: str | None = Field(None)
 
 
 class ManagedIdentityConfig(BaseModel):
-    client_id: Optional[str] = Field(None)
+    client_id: str | None = Field(None)
 
 
 class AzureOAuthConfig(BaseModel):
-    client_id: Optional[str] = Field(None)
-    client_secret: Optional[SecretStr] = Field(None)
-    tenant_id: Optional[str] = Field(None)
+    client_id: str | None = Field(None)
+    client_secret: SecretStr | None = Field(None)
+    tenant_id: str | None = Field(None)
 
 
 class AzureSDKConfig(BaseModel):
-    tenant_id: Optional[str] = Field(None)
+    tenant_id: str | None = Field(None)
 
 
 class AzureADConfig(BaseModel):
-    cloud: Optional[str] = Field("AzurePublic")
-    managed_identity: Optional[ManagedIdentityConfig] = Field(None)
-    oauth: Optional[AzureOAuthConfig] = Field(None)
-    sdk: Optional[AzureSDKConfig] = Field(None)
+    cloud: str | None = Field("AzurePublic")
+    managed_identity: ManagedIdentityConfig | None = Field(None)
+    oauth: AzureOAuthConfig | None = Field(None)
+    sdk: AzureSDKConfig | None = Field(None)

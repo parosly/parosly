@@ -1,7 +1,9 @@
-from prometheus_fastapi_instrumentator import PrometheusFastApiInstrumentator
-from fastapi import FastAPI
-from .log import logger
 from sys import modules
+
+from fastapi import FastAPI
+from prometheus_fastapi_instrumentator import PrometheusFastApiInstrumentator
+
+from .log import logger
 
 
 def metrics(app: FastAPI):
@@ -12,8 +14,7 @@ def metrics(app: FastAPI):
     metrics_path = "/api-metrics"
     try:
         instrumentator = PrometheusFastApiInstrumentator(
-            should_group_status_codes=False,
-            excluded_handlers=["/{path:path}", "/.*metrics"]
+            should_group_status_codes=False, excluded_handlers=["/{path:path}", "/.*metrics"]
         )
         instrumentator.instrument(app)
         instrumentator.expose(app, endpoint=metrics_path, tags=["metrics"])

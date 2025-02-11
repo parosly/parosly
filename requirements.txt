@@ -11,3 +11,4 @@ fastapi==0.115.8
 uvicorn==0.21.1
 PyYAML==6.0.1
 httpx==0.24.0
+deepmerge==2.0

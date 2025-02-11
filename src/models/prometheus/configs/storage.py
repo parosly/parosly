@@ -1,9 +1,9 @@
-from ..misc.exemplar import ExemplarsConfig
 from pydantic import BaseModel, Field
+
+from ..misc.exemplar import ExemplarsConfig
 from ..misc.tsdb import TSDBConfig
-from typing import Optional
 
 
 class StorageConfig(BaseModel):
-    tsdb: Optional[TSDBConfig] = Field(None)
-    exemplars: Optional[ExemplarsConfig] = Field(None)
+    tsdb: TSDBConfig | None = Field(None)
+    exemplars: ExemplarsConfig | None = Field(None)

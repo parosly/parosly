@@ -1,5 +1,4 @@
 from pydantic import BaseModel, Field
-from typing import Optional
 
 
 class GCESDConfig(BaseModel):
@@ -24,22 +23,25 @@ class GCESDConfig(BaseModel):
     __meta_gce_tags: comma separated list of instance tags
     __meta_gce_zone: the GCE zone URL in which the instance is running
     """
-    project: str = Field(
-        ..., description="The GCP Project.")
+
+    project: str = Field(..., description="The GCP Project.")
     zone: str = Field(
-        ..., description="The zone of the scrape targets. If you need multiple zones, use multiple gce_sd_configs.")
-    filter: Optional[str] = Field(
+        ..., description="The zone of the scrape targets. If you need multiple zones, use multiple gce_sd_configs."
+    )
+    filter: str | None = Field(
         None,
         description="Filter to optionally filter the instance list by other criteria. "
-                    "Syntax of this filter string is described here in the filter query "
-                    "parameter section: https://cloud.google.com/compute/docs/reference/latest/instances/list")
-    refresh_interval: Optional[str] = Field(
-        "60s",
-        description="Refresh interval to re-read the instance list. Default is 60 seconds.")
-    port: Optional[int] = Field(
+        "Syntax of this filter string is described here in the filter query "
+        "parameter section: https://cloud.google.com/compute/docs/reference/latest/instances/list",
+    )
+    refresh_interval: str | None = Field(
+        "60s", description="Refresh interval to re-read the instance list. Default is 60 seconds."
+    )
+    port: int | None = Field(
         80,
         description="The port to scrape metrics from. If using the public IP address, this must "
-                    "instead be specified in the relabeling rule. Default is 80.")
-    tag_separator: Optional[str] = Field(
-        ",",
-        description="The tag separator used to separate the tags on concatenation. Default is ','.")
+        "instead be specified in the relabeling rule. Default is 80.",
+    )
+    tag_separator: str | None = Field(
+        ",", description="The tag separator used to separate the tags on concatenation. Default is ','."
+    )

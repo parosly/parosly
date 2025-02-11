@@ -1,6 +1,6 @@
-from src.models.prometheus.misc import auth, tls
 from pydantic import BaseModel, Field, SecretStr
-from typing import Optional, Dict, List
+
+from src.models.prometheus.misc import auth, tls
 
 
 class DigitalOceanSDConfig(BaseModel):
@@ -25,29 +25,28 @@ class DigitalOceanSDConfig(BaseModel):
     __meta_digitalocean_tags: the comma-separated list of tags of the droplet
     __meta_digitalocean_vpc: the id of the droplet's VPC
     """
-    basic_auth: Optional[auth.BasicAuthConfig] = Field(
-        None,
-        description="Optional HTTP basic authentication information, not currently supported by DigitalOcean.")
-    authorization: Optional[auth.AuthorizationConfig] = Field(
-        None, description="Optional `Authorization` header configuration.")
-    oauth2: Optional[auth.OAuth2Config] = Field(
-        None, description="Optional OAuth 2.0 configuration.")
-    proxy_url: Optional[str] = Field(None, description="Optional proxy URL.")
-    no_proxy: Optional[str] = Field(
+
+    basic_auth: auth.BasicAuthConfig | None = Field(
+        None, description="Optional HTTP basic authentication information, not currently supported by DigitalOcean."
+    )
+    authorization: auth.AuthorizationConfig | None = Field(
+        None, description="Optional `Authorization` header configuration."
+    )
+    oauth2: auth.OAuth2Config | None = Field(None, description="Optional OAuth 2.0 configuration.")
+    proxy_url: str | None = Field(None, description="Optional proxy URL.")
+    no_proxy: str | None = Field(
         None,
         description="Comma-separated string that can contain IPs, CIDR notation, domain names "
-                    "that should be excluded from proxying.")
-    proxy_from_environment: Optional[bool] = Field(
-        False, description="Use proxy URL indicated by environment variables.")
-    proxy_connect_header: Optional[Dict[str, List[SecretStr]]] = Field(
-        None, description="Specifies headers to send to proxies during CONNECT requests.")
-    follow_redirects: Optional[bool] = Field(
-        True, description="Configure whether HTTP requests follow HTTP 3xx redirects.")
-    enable_http2: Optional[bool] = Field(
-        True, description="Whether to enable HTTP2.")
-    tls_config: Optional[tls.TLSConfig] = Field(
-        None, description="TLS configuration.")
-    port: Optional[int] = Field(
-        80, description="The port to scrape metrics from.")
-    refresh_interval: Optional[str] = Field(
-        "60s", description="The time after which the droplets are refreshed.")
+        "that should be excluded from proxying.",
+    )
+    proxy_from_environment: bool | None = Field(False, description="Use proxy URL indicated by environment variables.")
+    proxy_connect_header: dict[str, list[SecretStr]] | None = Field(
+        None, description="Specifies headers to send to proxies during CONNECT requests."
+    )
+    follow_redirects: bool | None = Field(
+        True, description="Configure whether HTTP requests follow HTTP 3xx redirects."
+    )
+    enable_http2: bool | None = Field(True, description="Whether to enable HTTP2.")
+    tls_config: tls.TLSConfig | None = Field(None, description="TLS configuration.")
+    port: int | None = Field(80, description="The port to scrape metrics from.")
+    refresh_interval: str | None = Field("60s", description="The time after which the droplets are refreshed.")

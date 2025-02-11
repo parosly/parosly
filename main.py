@@ -1,22 +1,28 @@
-from fastapi.middleware.cors import CORSMiddleware
-from src.utils.arguments import arg_parser
-from src.utils.scheduler import schedule
-from src.api.v1.api import api_router
-from src.utils.openapi import openapi
-from src.utils.metrics import metrics
-from src.utils.log import logger
-from src.utils import settings
-from fastapi import FastAPI
-import uvicorn
 import sys
+
+import uvicorn
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from src.api.v1.api import api_router
+from src.utils import settings
+from src.utils.arguments import arg_parser
+from src.utils.log import logger
+from src.utils.metrics import metrics
+from src.utils.openapi import openapi
+from src.utils.scheduler import schedule
 
 args = arg_parser()
 host, port = args.get("web.listen_address").split(":")
 
-if not all([settings.check_files_and_directories(),
-            settings.check_fs_permissions(),
-            settings.establish_prom_connection(),
-            settings.check_reload_api_status()]):
+if not all(
+    [
+        settings.check_files_and_directories(),
+        settings.check_fs_permissions(),
+        settings.establish_prom_connection(),
+        settings.check_reload_api_status(),
+    ]
+):
     sys.exit()
 
 
@@ -24,8 +30,7 @@ def custom_openapi_wrapper():
     return openapi(app)
 
 
-app = FastAPI(swagger_ui_parameters={"defaultModelsExpandDepth": -1},
-              docs_url=None, redoc_url=None)
+app = FastAPI(swagger_ui_parameters={"defaultModelsExpandDepth": -1}, docs_url=None, redoc_url=None)
 app.openapi = custom_openapi_wrapper
 metrics(app)
 origins = ["*"]
@@ -40,13 +45,7 @@ app.include_router(api_router)
 
 
 def main():
-    config = uvicorn.Config(
-        app,
-        host=host,
-        port=int(port),
-        server_header=False,
-        date_header=False,
-        log_config=None)
+    config = uvicorn.Config(app, host=host, port=int(port), server_header=False, date_header=False, log_config=None)
     server = uvicorn.Server(config)
     try:
         logger.info(f"Server listening on {host}:{port}")

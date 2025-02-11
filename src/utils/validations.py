@@ -1,5 +1,6 @@
-from jsonschema import validate, exceptions
 import json
+
+from jsonschema import exceptions, validate
 
 
 def validate_schema(schema_file, data) -> tuple[bool, int, str, str]:
@@ -15,4 +16,3 @@ def validate_schema(schema_file, data) -> tuple[bool, int, str, str]:
     except exceptions.ValidationError as e:
         return False, 400, "error", e.args[0]
     return True, 200, "success", "Data is valid"
-
