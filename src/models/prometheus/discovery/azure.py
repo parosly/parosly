@@ -1,6 +1,6 @@
-from src.models.prometheus.misc import auth, tls
 from pydantic import BaseModel, Field, SecretStr
-from typing import Optional, Dict, List
+
+from src.models.prometheus.misc import auth, tls
 
 
 class AzureSDConfig(BaseModel):
@@ -24,50 +24,47 @@ class AzureSDConfig(BaseModel):
     __meta_azure_subscription_id: the subscription ID
     __meta_azure_tenant_id: the tenant ID
     """
-    environment: Optional[str] = Field(
-        "AzurePublicCloud",
-        description="The Azure environment.")
-    authentication_method: Optional[str] = Field(
-        "OAuth",
-        description="The authentication method, either OAuth, ManagedIdentity or SDK.")
-    subscription_id: str = Field(...,
-                                 description="The subscription ID. Always required.")
-    tenant_id: Optional[str] = Field(
-        None,
-        description="Optional tenant ID. Only required with authentication_method OAuth.")
-    client_id: Optional[str] = Field(
-        None,
-        description="Optional client ID. Only required with authentication_method OAuth.")
-    client_secret: Optional[SecretStr] = Field(
-        None,
-        description="Optional client secret. Only required with authentication_method OAuth.")
-    resource_group: Optional[str] = Field(
-        None,
-        description="Optional resource group name. Limits discovery to this resource group.")
-    refresh_interval: Optional[str] = Field(
-        "300s", description="Refresh interval to re-read the instance list.")
-    port: Optional[int] = Field(
-        80, description="The port to scrape metrics from.")
-    basic_auth: Optional[auth.BasicAuthConfig] = Field(
-        None,
-        description="Optional HTTP basic authentication information, currently not support by Azure.")
-    authorization: Optional[auth.AuthorizationConfig] = Field(
-        None, description="Optional `Authorization` header configuration, currently not supported by Azure.")
-    oauth2: Optional[auth.OAuth2Config] = Field(
-        None,
-        description="Optional OAuth 2.0 configuration, currently not supported by Azure.")
-    proxy_url: Optional[str] = Field(None, description="Optional proxy URL.")
-    no_proxy: Optional[str] = Field(
+
+    environment: str | None = Field("AzurePublicCloud", description="The Azure environment.")
+    authentication_method: str | None = Field(
+        "OAuth", description="The authentication method, either OAuth, ManagedIdentity or SDK."
+    )
+    subscription_id: str = Field(..., description="The subscription ID. Always required.")
+    tenant_id: str | None = Field(
+        None, description="Optional tenant ID. Only required with authentication_method OAuth."
+    )
+    client_id: str | None = Field(
+        None, description="Optional client ID. Only required with authentication_method OAuth."
+    )
+    client_secret: SecretStr | None = Field(
+        None, description="Optional client secret. Only required with authentication_method OAuth."
+    )
+    resource_group: str | None = Field(
+        None, description="Optional resource group name. Limits discovery to this resource group."
+    )
+    refresh_interval: str | None = Field("300s", description="Refresh interval to re-read the instance list.")
+    port: int | None = Field(80, description="The port to scrape metrics from.")
+    basic_auth: auth.BasicAuthConfig | None = Field(
+        None, description="Optional HTTP basic authentication information, currently not support by Azure."
+    )
+    authorization: auth.AuthorizationConfig | None = Field(
+        None, description="Optional `Authorization` header configuration, currently not supported by Azure."
+    )
+    oauth2: auth.OAuth2Config | None = Field(
+        None, description="Optional OAuth 2.0 configuration, currently not supported by Azure."
+    )
+    proxy_url: str | None = Field(None, description="Optional proxy URL.")
+    no_proxy: str | None = Field(
         None,
         description="Comma-separated string that can contain IPs, CIDR notation, domain names that "
-                    "should be excluded from proxying.")
-    proxy_from_environment: Optional[bool] = Field(
-        False, description="Use proxy URL indicated by environment variables.")
-    proxy_connect_header: Optional[Dict[str, List[SecretStr]]] = Field(
-        None, description="Specifies headers to send to proxies during CONNECT requests.")
-    follow_redirects: Optional[bool] = Field(
-        True, description="Configure whether HTTP requests follow HTTP 3xx redirects.")
-    enable_http2: Optional[bool] = Field(
-        True, description="Whether to enable HTTP2.")
-    tls_config: Optional[tls.TLSConfig] = Field(
-        None, description="TLS configuration.")
+        "should be excluded from proxying.",
+    )
+    proxy_from_environment: bool | None = Field(False, description="Use proxy URL indicated by environment variables.")
+    proxy_connect_header: dict[str, list[SecretStr]] | None = Field(
+        None, description="Specifies headers to send to proxies during CONNECT requests."
+    )
+    follow_redirects: bool | None = Field(
+        True, description="Configure whether HTTP requests follow HTTP 3xx redirects."
+    )
+    enable_http2: bool | None = Field(True, description="Whether to enable HTTP2.")
+    tls_config: tls.TLSConfig | None = Field(None, description="TLS configuration.")

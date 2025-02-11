@@ -1,13 +1,15 @@
-from src.utils.arguments import arg_parser
+from os import W_OK, access, remove
 from os.path import exists, isdir, isfile
-from os import remove, access, W_OK
-from .log import logger
 from time import sleep
+
 import requests
 
+from src.utils.arguments import arg_parser
+
+from .log import logger
+
 args = arg_parser()
-prom_addr, config_file, rule_path = \
-    args.get("prom.addr"), args.get("config.file"), args.get("rule.path")
+prom_addr, config_file, rule_path = args.get("prom.addr"), args.get("config.file"), args.get("rule.path")
 
 
 def check_prom_readiness(prometheus_address: str = prom_addr) -> bool:
@@ -18,17 +20,13 @@ def check_prom_readiness(prometheus_address: str = prom_addr) -> bool:
         logger.error(e)
     else:
         if r.status_code == 200:
-            logger.info(
-                "The connection to the Prometheus server has been established successfully!")
+            logger.info("The connection to the Prometheus server has been established successfully!")
             return True
-        else:
-            logger.error(
-                "Please ensure that the Prometheus server is ready and able to receive connections.")
-            return False
+        logger.error("Please ensure that the Prometheus server is ready and able to receive connections.")
+        return False
 
 
-def establish_prom_connection(
-        prometheus_address: str = prom_addr, retries=600) -> bool:
+def establish_prom_connection(prometheus_address: str = prom_addr, retries=600) -> bool:
     """
     This function continuously checks the
     connection to the Prometheus server, waiting
@@ -39,8 +37,7 @@ def establish_prom_connection(
         if check_prom_readiness(prometheus_address):
             return True
         sleep(3)
-    logger.error(
-        "Connection to Prometheus failed: Maximum retry attempts exceeded. The server has been shut down.")
+    logger.error("Connection to Prometheus failed: Maximum retry attempts exceeded. The server has been shut down.")
     return False
 
 
@@ -54,29 +51,30 @@ def check_reload_api_status(prometheus_address: str = prom_addr) -> bool:
         if r.status_code == 403:
             logger.error(
                 f"{r.text} It's disabled by default and can be enabled via the --web.enable-lifecycle. "
-                f"See https://prometheus.io/docs/prometheus/latest/management_api/#reload for more details.")
+                f"See https://prometheus.io/docs/prometheus/latest/management_api/#reload for more details."
+            )
             return False
         return True
 
 
-def check_files_and_directories(
-        resources: dict = {config_file: "file", rule_path: "dir"}) -> bool:
+def check_files_and_directories(resources: dict = {config_file: "file", rule_path: "dir"}) -> bool:
     """
     Checks existence of the file or directory. Ensures
     provided resource is accessible by the server.
     """
     for resource_path, resource_type in resources.items():
         if (not exists(resource_path)) or (
-                not {"file": isfile(resource_path), "dir": isdir(resource_path)}[resource_type]):
+            not {"file": isfile(resource_path), "dir": isdir(resource_path)}[resource_type]
+        ):
             logger.error(
                 f"{resource_path}: {resource_type} you provided does not exist. "
-                f"Please make sure it exists before proceeding.")
+                f"Please make sure it exists before proceeding."
+            )
             return False
         return True
 
 
-def check_fs_permissions(prometheus_rules_dir: str = rule_path,
-                         prometheus_config_file: str = config_file) -> bool:
+def check_fs_permissions(prometheus_rules_dir: str = rule_path, prometheus_config_file: str = config_file) -> bool:
     """
     Checks the necessary permissions for the server. The server should be
     able to create, update and delete files in the provided directories.
@@ -88,13 +86,12 @@ def check_fs_permissions(prometheus_rules_dir: str = rule_path,
         file (prometheus.yml) is writable
         """
         if access(prometheus_config_file, W_OK):
-            logger.debug(
-                f"Prometheus configuration file: {prometheus_config_file} is writable.")
+            logger.debug(f"Prometheus configuration file: {prometheus_config_file} is writable.")
             return True
-        else:
-            logger.error(
-                f"Prometheus configuration file {prometheus_config_file} is not writable. Update file permissions.")
-            return False
+        logger.error(
+            f"Prometheus configuration file {prometheus_config_file} is not writable. Update file permissions."
+        )
+        return False
 
     def rules_dir_writable() -> bool:
         """
@@ -105,12 +102,10 @@ def check_fs_permissions(prometheus_rules_dir: str = rule_path,
                 f.write("Do I have a write permission?")
             remove(f"{prometheus_rules_dir}/.test.yml")
         except OSError as e:
-            logger.error(
-                f"The temporary file could not be created or deleted for testing permissions. {e}")
+            logger.error(f"The temporary file could not be created or deleted for testing permissions. {e}")
             return False
         else:
-            logger.debug(
-                "The application has the necessary permissions to access the rule files directory.")
+            logger.debug("The application has the necessary permissions to access the rule files directory.")
             return True
 
     return all([config_file_writable(), rules_dir_writable()])

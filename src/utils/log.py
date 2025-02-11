@@ -1,17 +1,14 @@
-from pythonjsonlogger import jsonlogger
-from .arguments import arg_parser
-from datetime import datetime
 import logging
+from datetime import datetime
+
+from pythonjsonlogger import jsonlogger
+
+from .arguments import arg_parser
 
 
 class CustomJsonFormatter(jsonlogger.JsonFormatter):
     def add_fields(self, log_record, record, message_dict):
-        super(
-            CustomJsonFormatter,
-            self).add_fields(
-            log_record,
-            record,
-            message_dict)
+        super(CustomJsonFormatter, self).add_fields(log_record, record, message_dict)
         if not log_record.get("timestamp"):
             now = datetime.now().strftime("%d %b %Y %H:%M:%S")
             log_record["timestamp"] = now

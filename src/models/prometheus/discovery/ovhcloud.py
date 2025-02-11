@@ -1,5 +1,4 @@
 from pydantic import BaseModel, Field, SecretStr
-from typing import Optional
 
 
 class OVHcloudSDConfig(BaseModel):
@@ -11,15 +10,14 @@ class OVHcloudSDConfig(BaseModel):
     will try to use the IPv6 one. This may be changed with relabeling. For OVHcloud's
     public cloud instances you can use the openstacksdconfig.
     """
-    application_key: str = Field(
-        ..., description="Access key to use. https://api.ovh.com")
-    application_secret: SecretStr = Field(
-        ..., description="Secret for the application key.")
-    consumer_key: SecretStr = Field(
-        ..., description="Consumer key.")
-    service: str = Field(
-        ..., description="Service of the targets to retrieve. Must be `vps` or `dedicated_server`.")
-    endpoint: Optional[str] = Field(
-        "ovh-eu", description="API endpoint. Default is 'ovh-eu'. https://github.com/ovh/go-ovh#supported-apis")
-    refresh_interval: Optional[str] = Field(
-        "60s", description="Refresh interval to re-read the resources list. Default is 60 seconds.")
+
+    application_key: str = Field(..., description="Access key to use. https://api.ovh.com")
+    application_secret: SecretStr = Field(..., description="Secret for the application key.")
+    consumer_key: SecretStr = Field(..., description="Consumer key.")
+    service: str = Field(..., description="Service of the targets to retrieve. Must be `vps` or `dedicated_server`.")
+    endpoint: str | None = Field(
+        "ovh-eu", description="API endpoint. Default is 'ovh-eu'. https://github.com/ovh/go-ovh#supported-apis"
+    )
+    refresh_interval: str | None = Field(
+        "60s", description="Refresh interval to re-read the resources list. Default is 60 seconds."
+    )

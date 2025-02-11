@@ -1,10 +1,10 @@
 from pydantic import BaseModel, Field
-from typing import Optional
 
 
 class TSDBConfig(BaseModel):
-    out_of_order_time_window: Optional[str] = Field(
-        "0s", description="Configures how old an out-of-order/out-of-bounds "
+    out_of_order_time_window: str | None = Field(
+        "0s",
+        description="Configures how old an out-of-order/out-of-bounds "
         "sample can be w.r.t. the TSDB max time. "
         "An out-of-order/out-of-bounds sample is ingested "
         "into the TSDB as long as the timestamp of the "
@@ -16,4 +16,5 @@ class TSDBConfig(BaseModel):
         "sample or an out-of-order/out-of-bounds sample "
         "that is within the out-of-order window, or (b) "
         "too-old, i.e. not in-order and before the "
-        "out-of-order window.")
+        "out-of-order window.",
+    )

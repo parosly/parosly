@@ -1,5 +1,4 @@
 from pydantic import BaseModel, Field
-from typing import Optional, List
 
 
 class DNSSDConfig(BaseModel):
@@ -20,12 +19,8 @@ class DNSSDConfig(BaseModel):
     __meta_dns_mx_record_target: the target field of the MX record
     __meta_dns_ns_record_target: the target field of the NS record
     """
-    names: List[str] = Field(...,
-                             description="A list of DNS domain names to be queried.")
-    type: Optional[str] = Field(
-        "SRV",
-        description="The type of DNS query to perform. One of SRV, A, AAAA, MX or NS.")
-    port: Optional[int] = Field(
-        None, description="The port number used if the query type is not SRV.")
-    refresh_interval: Optional[str] = Field(
-        "30s", description="The time after which the provided names are refreshed.")
+
+    names: list[str] = Field(..., description="A list of DNS domain names to be queried.")
+    type: str | None = Field("SRV", description="The type of DNS query to perform. One of SRV, A, AAAA, MX or NS.")
+    port: int | None = Field(None, description="The port number used if the query type is not SRV.")
+    refresh_interval: str | None = Field("30s", description="The time after which the provided names are refreshed.")
