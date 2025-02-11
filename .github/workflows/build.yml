@@ -24,13 +24,13 @@ jobs:
         name: Show what fixes will be applied
         with:
           src: "./src main.py"
-          version: 0.2.1
+          version: 0.3.0
           args: --diff --exit-zero
       - uses: chartboost/ruff-action@v1
         name: Apply fixes
         with:
           src: "./src main.py"
-          version: 0.2.1
+          version: 0.3.0
           args: --fix --show-fixes
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v5
