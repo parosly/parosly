@@ -69,8 +69,10 @@ async def export(
         format: str = "csv"
 ):
     data = data.dict()
-    expr, start = data.get("expr"), data.get("start")
-    end, step = data.get("end"), data.get("step")
+    expr = data.get("expr")
+    start, end = data.get("start"), data.get("end")
+    step = data["step"] = exp.auto_max_resolution(
+        start, end) if data.get("step") == "auto" else data.get("step")
     file, file_format = None, format.lower()
     custom_fields, timestamp_format = data.get(
         "replace_fields"), data.get("timestamp_format")
@@ -95,6 +97,7 @@ async def export(
         extra={
             "status": response.status_code,
             "query": expr,
+            "step": step,
             "method": request.method,
             "request_path": f"{request.url.path}{'?' + request.url.query if request.url.query else ''}"})
     if sts == "success":
