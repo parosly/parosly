@@ -2,6 +2,7 @@ from src.utils.arguments import arg_parser
 from email.utils import formatdate
 from datetime import datetime
 from uuid import uuid4
+from math import ceil
 import requests
 import json
 import yaml
@@ -64,6 +65,19 @@ def format_timestamp(timestamp, fmt) -> str:
     }
 
     return timestamp_formats[fmt]
+
+
+def auto_max_resolution(start: str, end: str) -> str:
+    """
+    This function calculates the best step value based
+    on the Prometheus maximum resolution of 11,000
+    points per time-series.
+    """
+    date_format = "%Y-%m-%dT%H:%M:%SZ"
+    start_timestamp = datetime.strptime(start, date_format).timestamp()
+    end_timestamp = datetime.strptime(end, date_format).timestamp()
+    step_in_seconds = ceil((end_timestamp - start_timestamp) / 11000)
+    return f"{abs(step_in_seconds)}s"
 
 
 def data_processor(source_data: dict,
