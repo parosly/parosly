@@ -1,5 +1,6 @@
 from src.utils.arguments import arg_parser
 from email.utils import formatdate
+from dateutil.parser import parse
 from datetime import datetime
 from uuid import uuid4
 from math import ceil
@@ -73,9 +74,8 @@ def auto_max_resolution(start: str, end: str) -> str:
     on the Prometheus maximum resolution of 11,000
     points per time-series.
     """
-    date_format = "%Y-%m-%dT%H:%M:%SZ"
-    start_timestamp = datetime.strptime(start, date_format).timestamp()
-    end_timestamp = datetime.strptime(end, date_format).timestamp()
+    start_timestamp = parse(start).timestamp()
+    end_timestamp = parse(end).timestamp()
     step_in_seconds = ceil((end_timestamp - start_timestamp) / 11000)
     return f"{abs(step_in_seconds)}s"
 

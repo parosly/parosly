@@ -4,8 +4,8 @@ from typing import Optional
 
 class ExportData(BaseModel, extra=Extra.allow):
     expr: str
-    start: str = Field(regex=r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z")
-    end: str = Field(regex=r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z")
+    start: str = Field(regex=r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(|.\d{3})Z")
+    end: str = Field(regex=r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(|.\d{3})Z")
     step: Optional[str] = "auto"
     timestamp_format: Optional[str] = "unix"
     replace_fields: Optional[dict] = dict()
