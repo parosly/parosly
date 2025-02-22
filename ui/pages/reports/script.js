@@ -1,97 +1,57 @@
+// Initialize form event listeners when document is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    const modal = document.getElementById("exportModal");
-    const btn = document.getElementById("openModalBtn");
-    const span = document.getElementsByClassName("close")[0];
-    const loadingIndicator = document.getElementById('loadingIndicator');
+    // Add form submit event listener
+    document.querySelector('form').addEventListener('submit', handleExport);
+});
 
-    
-    modal.style.display = "none";
+async function handleExport(event) {
+    event.preventDefault();
+    showLoading();
 
-    btn.onclick = function() {
-        modal.style.display = "flex"; 
-    }
+    const formData = new FormData(event.target);
+    const format = document.getElementById('format').value;
+    const expr = formData.get('expr');
+    const start = formData.get('start');
+    const end = formData.get('end');
+    const step = formData.get('step');
+    const timestamp_format = formData.get('timestamp_format');
+    const replaceFields = formData.get('replace_fields') === 'on';
 
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
+    const data = {
+        expr,
+        start,
+        end,
+        step,
+        timestamp_format,
+        replace_fields: replaceFields
+    };
 
-    document.getElementById('exportForm').addEventListener('submit', async function(event) {
-        event.preventDefault();
-
-        // Start Spinner
-        loadingIndicator.style.display = 'block';
-
-        const expr = document.getElementById('expr').value;
-        const start = document.getElementById('start').value ? new Date(document.getElementById('start').value).toISOString() : null;
-        const end = document.getElementById('end').value ? new Date(document.getElementById('end').value).toISOString() : null;
-        const step = document.getElementById('step').value;
-        const timestamp_format = document.getElementById('timestamp_format').value;
-        const format = document.getElementById('format').value;
-
-        const replaceFields = {};
-        document.querySelectorAll('.replace-field').forEach(field => {
-            const key = field.querySelector('.replace-key').value;
-            const value = field.querySelector('.replace-value').value;
-            if (key && value) {
-                replaceFields[key] = value;
-            }
+    try {
+        const response = await fetch('/api/v1/export?format=' + format, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
         });
 
-        const data = {
-            expr: expr,
-            start: start,
-            end: end,
-            step: step,
-            timestamp_format: timestamp_format,
-            replace_fields: replaceFields
-        };
-
-        try {
-            const response = await fetch('/api/v1/export?format=' + format, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-
-            if (!response.ok) {
-                throw new Error(`Error: ${response.statusText}`);
-            }
-
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = url;
-            a.download = `data.${format}`;
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(a);
-        } catch (error) {
-            document.getElementById('results').innerHTML = `<p style="color: red;">${error.message}</p>`;
-        } finally {
-            // Stop Spinner
-            loadingIndicator.style.display = 'none';
+        if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`);
         }
-    });
 
-    document.getElementById('addReplaceField').addEventListener('click', function() {
-        const container = document.getElementById('replaceFieldsContainer');
-        const newField = document.createElement('div');
-        newField.className = 'replace-field';
-        newField.innerHTML = `
-            <input type="text" class="replace-key" placeholder="Source field">
-            <input type="text" class="replace-value" placeholder="Target field">
-            <button type="button" class="remove-field">‒</button>
-        `;
-        container.appendChild(newField);
-    });
-
-    document.getElementById('replaceFieldsContainer').addEventListener('click', function(event) {
-        if (event.target.classList.contains('remove-field')) {
-            event.target.parentElement.remove();
-        }
-    });
-});
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = `data.${format}`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+    } catch (error) {
+        showError(error.message);
+    } finally {
+        hideLoading();
+    }
+}

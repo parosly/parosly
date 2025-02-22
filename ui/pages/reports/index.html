@@ -4,39 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Parosly - Data Reports</title>
-    <link rel="stylesheet" href="/reports/style.css">
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="/components/css/common.css">
+    <link rel="stylesheet" href="/components/css/sidebar.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 </head>
 <body>
-    <div id="sidebar" class="sidebar">
-        <a href="/" class="sidebar-icon" id="homeBtn">
-            <img src="/images/icon-home.png" alt="Home"/>
-            <span class="icon-label">Home</span>
-        </a>
-        <a href="/graph" class="sidebar-icon" id="prometheusBtn">
-            <img src="/images/logo-prometheus.png" alt="Prometheus"/>
-            <span class="icon-label">Prometheus</span>
-        </a>
-        <a href="/config-management" class="sidebar-icon" id="configManagement">
-            <img src="/images/icon-config-management.png" alt="Config Management"/>
-            <span class="icon-label">Config Management</span>
-        </a>
-        <a href="/rules-management" class="sidebar-icon" id="rulesManagement">
-            <img src="/images/icon-rules-management.png" alt="Rules Management"/>
-            <span class="icon-label">Rules Management</span>
-        </a>
-        <a href="/metrics-management" class="sidebar-icon" id="metricsManagement">
-            <img src="/images/icon-metrics-management.png" alt="Metrics Management"/>
-            <span class="icon-label">Metrics Management</span>
-        </a>
-    </div>
+    <div id="sidebarContainer"></div>
+    <div class="loading-indicator"></div>
 
     <div class="main-content">
         <h5>Export data from Prometheus as CSV, YAML, and more.</h5>
         <button id="openModalBtn">Export Data</button>
     </div>
-
-    <div id="loadingIndicator" class="loading-indicator"></div>
 
     <div id="exportModal" class="modal">
         <div class="modal-content">
@@ -93,6 +73,7 @@
         </div>
     </div>
     
-    <script src="/reports/script.js"></script>
+    <script src="/components/js/common.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

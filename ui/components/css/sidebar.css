@@ -1,0 +1,44 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 60px;
+    background-color: #2D3748;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.sidebar:hover {
+    width: 220px;
+}
+
+.sidebar-icon {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar-icon:hover {
+    background-color: #4A5568;
+}
+
+.sidebar-icon img {
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
+}
+
+.icon-label {
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar:hover .icon-label {
+    opacity: 1;
+} 

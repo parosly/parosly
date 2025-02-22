@@ -38,6 +38,23 @@ if arg_parser().get("web.enable_ui") == "true":
                 "request_path": request.url.path})
         return f"{sts} {msg}"
 
+    @router.get(
+        "/components/{path}/{sub_path}",
+        description="Returns common HTML, CSS and JS resources for web UI",
+        include_in_schema=False)
+    async def components(path, sub_path, request: Request):
+        assets_path = f"ui/components/{path}"
+        if exists(f"{assets_path}/{sub_path}"):
+            return FileResponse(f"{assets_path}/{sub_path}")
+        sts, msg = "404", "Not Found"
+        logger.info(
+            msg=msg,
+            extra={
+                "status": sts,
+                "method": request.method,
+                "request_path": request.url.path})
+        return f"{sts} {msg}"
+
     @router.get("/config-management",
                 description="Renders config management HTML page of this application",
                 include_in_schema=False)

@@ -1,0 +1,63 @@
+/* Styles specific to Homepage */
+.hero {
+    text-align: center;
+    padding: 60px 0;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 8px;
+    margin-bottom: 40px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 24px;
+    opacity: 0.9;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.feature-card {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-card h2 {
+    color: #2D3748;
+    margin-bottom: 15px;
+}
+
+.feature-card p {
+    color: #4A5568;
+    margin-bottom: 20px;
+}
+
+.feature-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #48BB78;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.feature-link:hover {
+    background-color: #38A169;
+} 
