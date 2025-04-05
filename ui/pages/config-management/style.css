@@ -47,21 +47,33 @@
     background-color: #495368;
 }
 
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    height: 100vh;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
 .main-content {
     margin-left: 60px;
     transition: margin-left 0.3s ease;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .sidebar:hover + .main-content {
     margin-left: 250px;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-    background-color: #f4f4f4;
-    color: #333;
 }
 
 .toolbar {
@@ -73,6 +85,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    min-height: 60px;
 }
 
 .action-btn {
@@ -81,6 +94,8 @@ body {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    margin: 0 5px;
+    transition: background-color 0.2s ease;
 }
 
 .save-btn {
@@ -101,17 +116,27 @@ body {
 .editor-container {
     display: flex;
     flex-direction: column;
-    gap: 10px;
     background: #fff;
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    overflow: hidden;
+}
+
+.editor-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
 }
 
 .CodeMirror {
-    height: 400px;
+    height: calc(100vh - 150px) !important;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 14px;
+    flex: 1;
+    line-height: 1.5;
 }
 
 .modal {
@@ -124,7 +149,7 @@ body {
     background: rgba(0, 0, 0, 0.5);
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 2000;
 }
 
 .modal-content {
@@ -158,6 +183,10 @@ body {
     .main-content {
         margin-left: 60px;
     }
+
+    .CodeMirror {
+        height: calc(100vh - 130px) !important;
+    }
 }
 
 #editConfigBtn {
@@ -173,4 +202,16 @@ body {
 
 #editConfigBtn:hover {
     background-color: #45a049;
+}
+
+.save-btn:hover {
+    background-color: #45a049;
+}
+
+.apply-btn:hover {
+    background-color: #1e88e5;
+}
+
+.gray-btn:hover {
+    background-color: #8e8e8e;
 }

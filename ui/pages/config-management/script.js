@@ -24,6 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
         mode: 'yaml',
         lineNumbers: true,
         theme: 'monokai',
+        lineWrapping: true,
+        viewportMargin: Infinity,
+        tabSize: 2,
+        indentWithTabs: false
     });
 
     const showModal = (message) => {
@@ -47,7 +51,10 @@ document.addEventListener('DOMContentLoaded', () => {
             toolbar.style.display = 'none';
             editorContainer.style.display = 'block';
             codeMirrorInstance.setValue(yaml);
-            codeMirrorInstance.refresh();
+
+            setTimeout(() => {
+                codeMirrorInstance.refresh();
+            }, 50);
         } catch (error) {
             showModal(`Error: ${error.message}`);
         }
