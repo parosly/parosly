@@ -1,5 +1,6 @@
 prometheus-fastapi-instrumentator==6.1.0
 python-json-logger==2.0.7
+python-dateutil==2.9.0
 email-validator==2.0.0
 APScheduler==3.10.4
 pytimeparse2==1.7.1
