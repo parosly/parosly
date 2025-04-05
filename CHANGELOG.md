@@ -1,4 +1,18 @@
 
+## [v0.2.2] - 2025-04-05
+### New Features
+- [`cd9bad8`](https://github.com/parosly/parosly/commit/cd9bad8967414802cfc90ad50b4d6a25c39c256e) - **ui**: Support full screen YAML editor in Config Management page *(PR [#32](https://github.com/parosly/parosly/pull/32) by [@hayk96](https://github.com/hayk96))*
+  - :arrow_lower_right: *addresses issue [#4](https://github.com/parosly/parosly/issues/4) opened by [@hayk96](https://github.com/hayk96)*
+
+### Bug Fixes
+- [`7916771`](https://github.com/parosly/parosly/commit/7916771783dda34bcbf8576c6651e15a09f9656f) - **api**: Fix default value of step field and use auto resolution *(PR [#31](https://github.com/parosly/parosly/pull/31) by [@hayk96](https://github.com/hayk96))*
+  - :arrow_lower_right: *fixes issue [#30](https://github.com/parosly/parosly/issues/30) opened by [@hayk96](https://github.com/hayk96)*
+- [`8d62b9a`](https://github.com/parosly/parosly/commit/8d62b9ada84b56b0bd9e9417f2c556a2f66da409) - **api**: Fix datetime parser and regexp in Export API *(commit by [@hayk96](https://github.com/hayk96))*
+
+### Chores
+- [`cfb800f`](https://github.com/parosly/parosly/commit/cfb800fa3bc620bbef0ccf5b5b5c88477d657bf9) - **api**: Bump app version *(commit by [@hayk96](https://github.com/hayk96))*
+
+
 ## [v0.2.1] - 2025-02-01
 ### Bug Fixes
 - [`11169ac`](https://github.com/parosly/parosly/commit/11169ac1357f88672177b070ed8f5ce867dacda9) - Update app version in docs #none *(PR [#15](https://github.com/parosly/parosly/pull/15) by [@hayk96](https://github.com/hayk96))*
@@ -33,3 +47,4 @@
 [v0.1.1]: https://github.com/parosly/parosly/compare/v0.1.0...v0.1.1
 [v0.2.0]: https://github.com/parosly/parosly/compare/v0.2.0...v0.1.1
 [v0.2.1]: https://github.com/parosly/parosly/compare/v0.1.1...v0.2.1
+[v0.2.2]: https://github.com/parosly/parosly/compare/v0.2.1...v0.2.2
